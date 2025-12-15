@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 5s
+
+rule_files:
+  - "ops/alerts.yaml"
+
+scrape_configs:
+  - job_name: "paygard-api"
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - 172.24.16.181:8000

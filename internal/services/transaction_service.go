@@ -1,0 +1,47 @@
+package services
+
+import (
+	"context"
+	"log"
+
+	"github.com/JasonLeonnn/paygard/internal/db"
+	"github.com/JasonLeonnn/paygard/internal/metrics"
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
+)
+
+type TransactionService struct {
+	pool *pgxpool.Pool
+}
+
+func NewTransactionService(pool *pgxpool.Pool) *TransactionService {
+	return &TransactionService{pool: pool}
+}
+
+func (s *TransactionService) CreateTransaction(ctx context.Context, tx *db.Transaction) (bool, string, error) {
+	id, err := db.InsertTransaction(ctx, s.pool, tx)
+	if err != nil {
+		return false, "", err
+	}
+	metrics.TransactionCounter.WithLabelValues(tx.Category).Inc()
+	tx.ID = id
+
+	isAnomaly, severity, err := db.CheckAnomaly(ctx, s.pool, tx, false)
+	if isAnomaly {
+		metrics.AnomalyCounter.Inc()
+		if severity != "" {
+			metrics.AnomalyBySeverityCounter.WithLabelValues(severity).Inc()
+		}
+		log.Printf("anomaly detected: tx_id=%s category=%s severity=%s amount=%.2f", tx.ID, tx.Category, severity, tx.Amount)
+	}
+	if err != nil {
+		if err == pgx.ErrNoRows {
+			isAnomaly = false
+		} else {
+			log.Printf("Error checking anomaly: %v", err)
+			return false, "", err
+		}
+	}
+
+	return isAnomaly, id, nil
+}

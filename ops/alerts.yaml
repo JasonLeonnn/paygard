@@ -1,0 +1,29 @@
+groups:
+  - name: paygard_alerts
+    rules:
+      - alert: HighAnomalyRate
+        expr: anomalies_total > 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High anomaly rate detected"
+          description: "More than 10 anomalies detected in the last 5 minutes."
+
+      - alert: CriticalAnomaliesSpiking
+        expr: increase(anomalies_by_severity_total{severity="critical"}[5m]) > 3
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical anomalies spiking"
+          description: "More than 3 critical anomalies created in the last 5 minutes."
+
+      - alert: SlowHTTPRequests
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 0.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "95th percentile HTTP request latency high"
+          description: "Requests taking more than 0.5s on the 95th percentile"

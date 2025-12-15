@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS alerts;
+DROP TABLE IF EXISTS baselines;
+DROP TABLE IF EXISTS transactions;
