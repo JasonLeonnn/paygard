@@ -27,6 +27,10 @@ func severityForZScore(z float64, strict bool) (string, string) {
 		return "critical", "Amount exceeds 5\u03c3 baseline"
 	case z >= 3:
 		return "high", "Amount exceeds 3\u03c3 baseline"
+	case z >= 2:
+		return "medium", "Amount exceeds 2\u03c3 baseline"
+	case z >= 1:
+		return "low", "Amount exceeds 1\u03c3 baseline"
 	default:
 		return "", ""
 	}

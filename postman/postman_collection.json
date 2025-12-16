@@ -1,0 +1,192 @@
+{
+    "info": {
+      "name": "Paygard Transactions",
+      "_postman_id": "b1111111-2222-3333-4444-555555555555",
+      "description": "Test transactions for Paygard to populate Grafana metrics and anomalies.",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Baseline - Food (Starbucks, normal)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 25,\n  \"category\": \"food\",\n  \"merchant\": \"Starbucks\",\n  \"transaction_date\": \"2025-12-16T10:00:00Z\"\n}"
+          }
+        }
+      },
+      {
+        "name": "Baseline - Transport (Uber, normal)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 40,\n  \"category\": \"transport\",\n  \"merchant\": \"Uber\",\n  \"transaction_date\": \"2025-12-16T10:05:00Z\"\n}"
+          }
+        }
+      },
+      {
+        "name": "Baseline - Shopping (Amazon, normal)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 60,\n  \"category\": \"shopping\",\n  \"merchant\": \"Amazon\",\n  \"transaction_date\": \"2025-12-16T10:10:00Z\"\n}"
+          }
+        }
+      },
+      {
+        "name": "High Volume - Food (Starbucks baseline load)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 30,\n  \"category\": \"food\",\n  \"merchant\": \"Starbucks\",\n  \"transaction_date\": \"2025-12-16T11:00:00Z\"\n}"
+          },
+          "description": "Send this request multiple times to simulate higher volume for food/Starbucks."
+        }
+      },
+      {
+        "name": "Anomaly - Food (Starbucks very high amount)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 5000,\n  \"category\": \"food\",\n  \"merchant\": \"Starbucks\",\n  \"transaction_date\": \"2025-12-16T11:30:00Z\"\n}"
+          }
+        }
+      },
+      {
+        "name": "Anomaly - Shopping (Amazon very high amount)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 15000,\n  \"category\": \"shopping\",\n  \"merchant\": \"Amazon\",\n  \"transaction_date\": \"2025-12-16T11:35:00Z\"\n}"
+          }
+        }
+      },
+      {
+        "name": "Severity Ladder - Travel (Delta medium-ish)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 200,\n  \"category\": \"travel\",\n  \"merchant\": \"Delta\",\n  \"transaction_date\": \"2025-12-16T12:00:00Z\"\n}"
+          }
+        }
+      },
+      {
+        "name": "Severity Ladder - Travel (Delta high)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 2000,\n  \"category\": \"travel\",\n  \"merchant\": \"Delta\",\n  \"transaction_date\": \"2025-12-16T12:05:00Z\"\n}"
+          }
+        }
+      },
+      {
+        "name": "Severity Ladder - Travel (Delta critical)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 20000,\n  \"category\": \"travel\",\n  \"merchant\": \"Delta\",\n  \"transaction_date\": \"2025-12-16T12:10:00Z\"\n}"
+          }
+        }
+      },
+      {
+        "name": "Misc Load - Misc category (for latency & volume)",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/transactions",
+            "host": ["{{baseUrl}}"],
+            "path": ["transactions"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"amount\": 55,\n  \"category\": \"misc\",\n  \"merchant\": \"TestMerchant\",\n  \"transaction_date\": \"2025-12-16T13:00:00Z\"\n}"
+          },
+          "description": "Send this multiple times or in a Postman collection runner to generate more HTTP/DB latency samples."
+        }
+      }
+    ]
+  }

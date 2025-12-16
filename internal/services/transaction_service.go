@@ -23,24 +23,24 @@ func (s *TransactionService) CreateTransaction(ctx context.Context, tx *db.Trans
 	if err != nil {
 		return false, "", err
 	}
-	metrics.TransactionCounter.WithLabelValues(tx.Category).Inc()
+	metrics.TransactionCounter.WithLabelValues(tx.Category, tx.Merchant).Inc()
 	tx.ID = id
 
 	isAnomaly, severity, err := db.CheckAnomaly(ctx, s.pool, tx, false)
-	if isAnomaly {
-		metrics.AnomalyCounter.Inc()
-		if severity != "" {
-			metrics.AnomalyBySeverityCounter.WithLabelValues(severity).Inc()
-		}
-		log.Printf("anomaly detected: tx_id=%s category=%s severity=%s amount=%.2f", tx.ID, tx.Category, severity, tx.Amount)
-	}
 	if err != nil {
 		if err == pgx.ErrNoRows {
+			log.Printf("No baseline found for category=%s, skipping anomaly detection. Run baseline update to create baselines.", tx.Category)
 			isAnomaly = false
 		} else {
 			log.Printf("Error checking anomaly: %v", err)
 			return false, "", err
 		}
+	} else if isAnomaly {
+		metrics.AnomalyCounter.Inc()
+		if severity != "" {
+			metrics.AnomalyBySeverityCounter.WithLabelValues(severity).Inc()
+		}
+		log.Printf("anomaly detected: tx_id=%s category=%s severity=%s amount=%.2f", tx.ID, tx.Category, severity, tx.Amount)
 	}
 
 	return isAnomaly, id, nil

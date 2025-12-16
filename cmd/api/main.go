@@ -63,6 +63,13 @@ func main() {
 		IdleTimeout:  150 * time.Second,
 	}
 
+	// Initial baseline update on startup
+	if err := db.UpdateBaselines(context.Background(), pool, cfg.BaselineWindowDays); err != nil {
+		log.Printf("Failed to update baselines on startup: %v", err)
+	} else {
+		log.Println("Baselines updated on startup")
+	}
+
 	// Periodic baselines updater
 	stop := make(chan struct{})
 	go func() {
@@ -73,6 +80,8 @@ func main() {
 			case <-ticker.C:
 				if err := db.UpdateBaselines(context.Background(), pool, cfg.BaselineWindowDays); err != nil {
 					log.Printf("Failed to update baselines: %v", err)
+				} else {
+					log.Println("Baselines updated periodically")
 				}
 			case <-stop:
 				return

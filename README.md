@@ -8,6 +8,13 @@
 
 **Paygard** is a Go-based backend system for **financial transaction monitoring and anomaly detection**, designed like a production-ready fintech system. It features real-time metrics, alerts, and visual dashboards with Prometheus and Grafana.
 
+## 💡 Motivation
+
+I wanted to understand how production backends handle real-time monitoring and alerting, while creating a scalable Go backend system.
+Financial fraud detection seemed like a concrete domain to explore statistical anomaly detection with meaningful observability.
+
+---
+
 ## 🚀 Features
 
 ### Core
@@ -19,13 +26,13 @@
 ### Observability
 
 * Prometheus metrics for:
-
   * HTTP latency
   * Database query latency
   * Transaction volume
   * Anomaly count
 * `/metrics` endpoint for scraping
 * Grafana dashboard for visualization
+![Grafana Overview](docs/img/grafana-overview.png)
 * Alert rules for anomaly rate and latency (Prometheus Alerting)
 
 ### Reliability & Safety
@@ -260,6 +267,15 @@ Paygard is intentionally small but **designed like a production backend**:
 - **Safety & simplicity**
   - Global rate limiting to protect the service under load; could be extended to per-tenant/IP in a multi-tenant setting.
   - Config is env-driven with validation so misconfiguration is caught on startup rather than at runtime.
+
+---
+
+## 🚧 Future Enhancements
+
+- Per-merchant anomaly baselines (not just category-wide)
+- Webhook push notifications to external systems for critical alerts 
+- Cursor-based pagination to handle high volume queries
+- Transaction reversal API with idempotency keys for refund handling
 
 ---
 

@@ -10,7 +10,7 @@ var (
 			Name: "transactions_total",
 			Help: "Total number of transactions created",
 		},
-		[]string{"category"},
+		[]string{"category", "merchant"},
 	)
 
 	AnomalyCounter = prometheus.NewCounter(
