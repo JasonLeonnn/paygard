@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/JasonLeonnn/paygard/internal/metrics"
+	"github.com/JasonLeonnn/jalytics/internal/metrics"
 	"github.com/go-chi/chi/v5"
 )
 

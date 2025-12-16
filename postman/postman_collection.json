@@ -1,8 +1,8 @@
 {
     "info": {
-      "name": "Paygard Transactions",
+      "name": "Jalytics Transactions",
       "_postman_id": "b1111111-2222-3333-4444-555555555555",
-      "description": "Test transactions for Paygard to populate Grafana metrics and anomalies.",
+      "description": "Test transactions for Jalytics to populate Grafana metrics and anomalies.",
       "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [

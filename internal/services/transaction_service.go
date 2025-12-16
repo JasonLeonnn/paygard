@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/JasonLeonnn/paygard/internal/db"
-	"github.com/JasonLeonnn/paygard/internal/metrics"
+	"github.com/JasonLeonnn/jalytics/internal/db"
+	"github.com/JasonLeonnn/jalytics/internal/metrics"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )

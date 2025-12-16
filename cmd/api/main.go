@@ -9,11 +9,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/JasonLeonnn/paygard/internal/config"
-	"github.com/JasonLeonnn/paygard/internal/db"
-	"github.com/JasonLeonnn/paygard/internal/http"
-	"github.com/JasonLeonnn/paygard/internal/http/middleware"
-	"github.com/JasonLeonnn/paygard/internal/services"
+	"github.com/JasonLeonnn/jalytics/internal/config"
+	"github.com/JasonLeonnn/jalytics/internal/db"
+	"github.com/JasonLeonnn/jalytics/internal/http"
+	"github.com/JasonLeonnn/jalytics/internal/http/middleware"
+	"github.com/JasonLeonnn/jalytics/internal/services"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"

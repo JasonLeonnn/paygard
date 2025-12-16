@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/JasonLeonnn/paygard/internal/metrics"
+	"github.com/JasonLeonnn/jalytics/internal/metrics"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 

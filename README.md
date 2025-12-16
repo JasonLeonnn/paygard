@@ -1,4 +1,4 @@
-# Paygard
+# Jalytics
 
 ![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?logo=postgresql)
@@ -6,7 +6,7 @@
 ![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?logo=grafana)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-**Paygard** is a Go-based backend system for **financial transaction monitoring and anomaly detection**, designed like a production-ready fintech system. It features real-time metrics, alerts, and visual dashboards with Prometheus and Grafana.
+**Jalytics** is a Go-based backend system for **financial transaction monitoring and anomaly detection**, designed like a production-ready fintech system. It features real-time metrics, alerts, and visual dashboards with Prometheus and Grafana.
 
 ## 💡 Motivation
 
@@ -134,7 +134,7 @@ These metrics can be visualized in **Grafana dashboards**.
 
 ## 🎯 Anomaly Detection & Alert Severity
 
-Paygard models transaction risk using **statistical baselines**:
+Jalytics models transaction risk using **statistical baselines**:
 
 - **Per-category baselines**:
   - A background job recomputes rolling baselines for each category over a configurable window (`BASELINE_WINDOW_DAYS`).
@@ -148,7 +148,7 @@ Paygard models transaction risk using **statistical baselines**:
     - `critical` – extreme outliers (e.g. > 5σ)
 
 - **Low-variance fallback**:
-  - When a category is very stable (stddev ≈ 0), Paygard falls back to a rule like:
+  - When a category is very stable (stddev ≈ 0), Jalytics falls back to a rule like:
     - flag if `amount ≥ 2x` the stable baseline and deviation is materially large.
 
 Alerts are persisted with **severity** so downstream systems and dashboards can prioritize the riskiest events first.
@@ -182,7 +182,7 @@ All schema changes are handled via migrations.
 Configuration is driven by environment variables:
 
 ```bash
-DATABASE_URL=postgres://user:pass@localhost:5432/paygard?sslmode=disable
+DATABASE_URL=postgres://user:pass@localhost:5432/jalytics?sslmode=disable
 PORT=8000
 LOG_LEVEL=info               # optional (debug, info, warn, error)
 BASELINE_WINDOW_DAYS=30      # optional, rolling window for baselines
@@ -233,7 +233,7 @@ This prevents abuse and simulates real production constraints.
 
 ## Grafana Dashboard
 
-Custom dashboard UID: **paygard_dashboard**
+Custom dashboard UID: **jalytics_dashboard**
 
 Panels:
 - Transaction per category
@@ -248,7 +248,7 @@ Add custom thresholds for color coding to visualize critical metrics.
 
 ## 🧩 Design & Trade-offs
 
-Paygard is intentionally small but **designed like a production backend**:
+Jalytics is intentionally small but **designed like a production backend**:
 
 - **Stack choices**
   - `chi` router for lightweight, composable HTTP middleware.

@@ -1,5 +1,5 @@
 groups:
-  - name: paygard_alerts
+  - name: jalytics_alerts
     rules:
       - alert: HighAnomalyRate
         expr: anomalies_total > 10

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/JasonLeonnn/paygard/internal/services"
+	"github.com/JasonLeonnn/jalytics/internal/services"
 )
 
 func GetAlertsHandler(service *services.AlertService) http.HandlerFunc {

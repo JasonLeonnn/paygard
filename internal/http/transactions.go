@@ -5,8 +5,8 @@ import (
 	nethttp "net/http"
 	"time"
 
-	"github.com/JasonLeonnn/paygard/internal/db"
-	"github.com/JasonLeonnn/paygard/internal/services"
+	"github.com/JasonLeonnn/jalytics/internal/db"
+	"github.com/JasonLeonnn/jalytics/internal/services"
 )
 
 type CreateTransactionRequest struct {

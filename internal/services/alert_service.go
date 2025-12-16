@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 
-	"github.com/JasonLeonnn/paygard/internal/db"
+	"github.com/JasonLeonnn/jalytics/internal/db"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
